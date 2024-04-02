@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/listings.css" />
+    <title>Home Page</title>
+  </head>
+
+  <body>
+    <nav class="flex items-center md:gap-12 gap-4 px-2 py-4">
+      <i class="logo text-5xl text-[#ff385c] ri-compasses-2-fill"></i>
+      <ul class="flex md:gap-12 gap-4">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Listings</a></li>
+        <li><a href="/listing/add">Add New Listing</a></li>
+      </ul>
+    </nav>
+
+    <main class="w-full bg-[#f9f9f9]">
+      <section id="listings" class="relative p-5 my-5 rounded-lg">
+        <h1 class="text-4xl font-semibold mb-4">All Listings</h1>
+        <div id="listingscontainer" class="w-full grid gap-5">
+            <% properties.forEach(property => { %>
+                <div class="card" data-id="<%= property._id %>">
+                  <div class="cardimg rounded-lg h-[300px]" style="background-image: url('<%= property.image %>');"></div>
+                  <p class="text-xl"><%= property.title %></p>
+                  <p>$<%= property.price %> / night</p>
+                </div>
+            <% }); %>
+
+            <!--
+
+                <div class="cardimg rounded-lg h-[300px] w-full flex flex-col justify-between p-5 text-white"></div>
+                <p class="text-xl">Cozy Beachfront Cottage</p>
+                <p>$1500 / night</p>
+
+            -->
+        </div>
+      </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const cards = document.querySelectorAll('.card');
+          cards.forEach(card => {
+            card.addEventListener('click', function() {
+              const cardId = this.dataset.id;
+              window.location.href = `/listings/${cardId}`;
+            });
+          });
+        });
+      </script>
+  </body>
+</html>

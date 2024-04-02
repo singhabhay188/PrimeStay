@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html,
+  body {
+    width: 100%;
+  }
+  
+  nav {
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  }
+  
+  #listings .card .cardimg {
+    background: url('https://a0.muscache.com/im/pictures/e35bb307-05f4-48a4-bdc5-3b2198bb9451.jpg?im_w=1440');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  #listings .card{
+    max-width: 400px;
+    width: 100%;
+    margin: auto;
+  }
+  
+  #listingscontainer{
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+    align-content: space-between;
+  }

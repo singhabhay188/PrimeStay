@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <title>Home Page</title>
+  </head>
+
+  <body class="w-screen overflow-x-hidden">
+    <nav class="w-full flex items-center md:gap-12 gap-4 px-2 py-4">
+      <i class="logo text-5xl text-[#ff385c] ri-compasses-2-fill"></i>
+      <ul class="flex md:gap-12 gap-4">
+        <li><a href="#">Home</a></li>
+        <li><a href="/listings">Listings</a></li>
+        <li><a href="/listing/add">Add New Listing</a></li>
+      </ul>
+    </nav>
+
+    <main class="p-5 w-full">
+      <section id="welcome" class="relative p-5 bg-[#f9f9f9] my-5 bg-red-100 rounded-lg">
+        <h1 class="text-4xl font-semibold mb-4">Welcome to PrimeStay!</h1>
+        <div class="container">
+            <p class="text-xl mb-4">
+            Embark on an extraordinary journey with us and discover the world's
+            most breathtaking destinations.
+          </p>
+          <p class="text-xl mb-4">Why Choose PrimeStay?</p>
+          <ul class="flex flex-col items-start">
+            <li><i class="ri-star-s-fill"></i> Curated Selection</li>
+            <li><i class="ri-star-s-fill"></i> Personalized Recommendations</li>
+            <li><i class="ri-star-s-fill"></i> 24/7 Support</li>
+            <li><i class="ri-star-s-fill"></i> Secure Booking</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="newweek" class="p-5 bg-red-100 rounded-lg overflow-hidden">
+        <p class="text-4xl font-semibold mb-5">New this week</p>
+        <div class="containerr flex gap-5 w-full overflow-x-auto">
+          <div class="card rounded-lg h-[300px] flex flex-col justify-between p-5 text-white flex-nowrap">
+            <div class="textupper">
+                <p class="text-sm">Collection</p>
+                <p class="text-xl font-semibold">Most Popular</p>
+                <p class="text-xl font-semibold">around the world</p>
+            </div>
+            <div class="textbottom">
+                <button class="p-2 rounded-lg font-semibold bg-white text-black">Show all</button>
+            </div>
+          </div>
+          <div class="card rounded-lg min-w-[200px] h-[300px] w-[600px] flex flex-col justify-between p-5 text-white">
+            <div class="textupper">
+                <p class="text-sm">Collection</p>
+                <p class="text-xl font-semibold">Most Popular</p>
+                <p class="text-xl font-semibold">around the world</p>
+            </div>
+            <div class="textbottom">
+                <button class="p-2 rounded-lg font-semibold bg-white text-black">Show all</button>
+            </div>
+          </div>
+          <div class="card rounded-lg min-w-[200px] h-[300px] w-[600px] flex flex-col justify-between p-5 text-white">
+            <div class="textupper">
+                <p class="text-sm">Collection</p>
+                <p class="text-xl font-semibold">Most Popular</p>
+                <p class="text-xl font-semibold">around the world</p>
+            </div>
+            <div class="textbottom">
+                <button class="p-2 rounded-lg font-semibold bg-white text-black">Show all</button>
+            </div>
+          </div>
+          <div class="card relative rounded-lg min-w-[200px] h-[300px] w-[600px] flex flex-col justify-between p-5 text-white">
+            <div class="textupper">
+                <p class="text-sm">Collection</p>
+                <p class="text-xl font-semibold">Most Popular</p>
+                <p class="text-xl font-semibold">around the world</p>
+            </div>
+            <div class="textbottom">
+                <button class="p-2 rounded-lg font-semibold bg-white text-black">Show all</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="community" class="p-5 bg-red-100 rounded-lg">
+        <p class="text-4xl font-semibold">Join PrimeStay Community</p>
+        <div class="container">
+          <p class="my-5">PrimeStay invites you to explore the world through our curated collection of exceptional destinations. Join our vibrant community of travelers to share stories, gain insider tips, and unlock exclusive offers. Whether you seek tranquil escapes or exhilarating adventures, PrimeStay is your trusted companion for unforgettable journeys. Start your travel odyssey today and let us redefine the way you experience the world.</p>
+
+          <form id="signup-form">
+            <div class="flex items-center flex-col justify-between">
+                <input type="email" placeholder="Your Email" class="p-2 rounded-lg mb-2"/>
+                <input type="text" placeholder="Your Name" class="p-2 rounded-lg mb-2"/>
+                <input type="password" placeholder="Password" class="p-2 rounded-lg mb-2"/>
+            </div>
+            <button type="submit" class="p-2 rounded-lg bg-[#ff385c] text-white block">Join Now</button>
+          </form>
+      </section>
+
+      <section id="book">
+        <!-- Book Now -->
+        <div class="container">
+          <h2>Ready to Start Your Adventure?</h2>
+          <form id="search-form">
+            <input type="text" placeholder="Find Your Perfect Stay" />
+            <button type="submit">Search Now</button>
+          </form>
+        </div>
+      </section>
+
+      <footer>
+        <!-- Footer Navigation -->
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Destinations</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </nav>
+        <!-- Social Media Links -->
+        <div class="social-media">
+          <a href="#"><img src="facebook-icon.png" alt="Facebook" /></a>
+          <a href="#"><img src="instagram-icon.png" alt="Instagram" /></a>
+          <a href="#"><img src="twitter-icon.png" alt="Twitter" /></a>
+          <a href="#"><img src="linkedin-icon.png" alt="LinkedIn" /></a>
+        </div>
+        <!-- Copyright Information -->
+        <p>&copy; 2024 PrimeStay. All rights reserved.</p>
+      </footer>
+    </main>
+
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -41,14 +41,7 @@
     </style>
 </head>
 <body class="h-full flex flex-col">
-    <nav class="flex items-center md:gap-12 gap-4 px-2 py-4 bg-white">
-        <i class="logo text-5xl text-[#ff385c] ri-compasses-2-fill"></i>
-        <ul class="flex md:gap-12 gap-4">
-          <li><a href="">Home</a></li>
-          <li><a href="#">Listings</a></li>
-          <li><a href="#">Add New Listing</a></li>
-        </ul>
-    </nav>
+    <%- include('./layouts/nav.ejs') %>
     <div class="flex-1">
         <div id="listing" class="flex flex-col w-[50vw] h-full mx-auto p-5 gap-5">
             <p class="text-4xl font-semibold"><%= card.title %></p>
@@ -56,11 +49,25 @@
             <p class="font-semibold"><%= card.description %></p>
             <p>$ <%= card.price %> / Night</p>
             <p><%= card.location %> , <%= card.country %></p>
-            <form action="">
-                <button class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Edit</button>
-                <button class="bg-gray-500  px-4 py-2 rounded-lg text-white">Delete</button>
-            </form>
+            <div>
+                <button id="editButton" onclick="move('<%= card.id %>',true)" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Edit</button>
+                <button class="bg-gray-500  px-4 py-2 rounded-lg text-white" onclick="move('<%= card.id %>',false)">Delete</button>
+            </div>
         </div>
     </div>
+
+    <%- include('./layouts/footer.ejs') %>
+
+    <script>
+        function move(id,isEdit){
+            if(isEdit){
+                let url = `/listing/edit/${id}`;
+                window.location.href = url;
+            }else{
+                let url = `/listing/delete/${id}`;
+                window.location.href = url;
+            }
+        }
+    </script>
 </body>
 </html>

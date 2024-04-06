@@ -12,17 +12,10 @@
     <title>Home Page</title>
   </head>
 
-  <body class="w-screen overflow-x-hidden">
-    <nav class="w-full flex items-center md:gap-12 gap-4 px-2 py-4">
-      <i class="logo text-5xl text-[#ff385c] ri-compasses-2-fill"></i>
-      <ul class="flex md:gap-12 gap-4">
-        <li><a href="#">Home</a></li>
-        <li><a href="/listings">Listings</a></li>
-        <li><a href="/listing/add">Add New Listing</a></li>
-      </ul>
-    </nav>
+  <body class="w-full overflow-x-hidden">
+    <%- include('./layouts/nav.ejs') %>
 
-    <main class="p-5 w-full">
+    <main class="px-4 py-2 w-full">
       <section id="welcome" class="relative p-5 bg-[#f9f9f9] my-5 bg-red-100 rounded-lg">
         <h1 class="text-4xl font-semibold mb-4">Welcome to PrimeStay!</h1>
         <div class="container">
@@ -32,10 +25,10 @@
           </p>
           <p class="text-xl mb-4">Why Choose PrimeStay?</p>
           <ul class="flex flex-col items-start">
-            <li><i class="ri-star-s-fill"></i> Curated Selection</li>
-            <li><i class="ri-star-s-fill"></i> Personalized Recommendations</li>
-            <li><i class="ri-star-s-fill"></i> 24/7 Support</li>
-            <li><i class="ri-star-s-fill"></i> Secure Booking</li>
+            <li><i class="ri-star-s-fill text-yellow-500"></i> Curated Selection</li>
+            <li><i class="ri-star-s-fill text-yellow-500"></i> Personalized Recommendations</li>
+            <li><i class="ri-star-s-fill text-yellow-500"></i> 24/7 Support</li>
+            <li><i class="ri-star-s-fill text-yellow-500"></i> Secure Booking</li>
           </ul>
         </div>
       </section>
@@ -111,28 +104,9 @@
           </form>
         </div>
       </section>
-
-      <footer>
-        <!-- Footer Navigation -->
-        <nav>
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Destinations</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact Us</a></li>
-          </ul>
-        </nav>
-        <!-- Social Media Links -->
-        <div class="social-media">
-          <a href="#"><img src="facebook-icon.png" alt="Facebook" /></a>
-          <a href="#"><img src="instagram-icon.png" alt="Instagram" /></a>
-          <a href="#"><img src="twitter-icon.png" alt="Twitter" /></a>
-          <a href="#"><img src="linkedin-icon.png" alt="LinkedIn" /></a>
-        </div>
-        <!-- Copyright Information -->
-        <p>&copy; 2024 PrimeStay. All rights reserved.</p>
-      </footer>
     </main>
+
+    <%- include('./layouts/footer.ejs') %>
 
     <script src="index.js"></script>
   </body>

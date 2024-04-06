@@ -2,35 +2,13 @@
 <html>
 <head>
     <title>Error 404 - Page Not Found</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
             font-family: Arial, sans-serif;
         }
 
-        .error-container {
-            text-align: center;
-        }
-
-        .error-code {
-            font-size: 10rem;
-            font-weight: bold;
-            color: #e74c3c;
-        }
-
-        .error-message {
-            font-size: 2rem;
-            margin-top: 2rem;
-            color: #333;
-        }
-
         .error-animation {
-            margin-top: 2rem;
             animation: error-animation 2s infinite;
         }
 
@@ -47,11 +25,11 @@
         }
     </style>
 </head>
-<body>
-    <div class="error-container">
-        <h1 class="error-code">404</h1>
-        <p class="error-message">Page Not Found</p>
-        <div class="error-animation">⚠️</div>
+<body class="w-screen h-screen flex items-center justify-center m-0 bg-[#f5f5f5]">
+    <div class="error-container text-center flex flex-col gap-12">
+        <h1 class="error-code text-9xl text-[#e74c3c] font-semibold">404</h1>
+        <p class="error-message text-[#333] text-4xl">Page Not Found</p>
+        <div class="error-animation text-5xl">⚠️</div>
     </div>
 </body>
 </html>

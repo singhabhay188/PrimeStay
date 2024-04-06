@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Listing Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        nav {
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+
+        form{
+            width: min(600px, 90vw);
+        }
+
+        form input, form textarea {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        form input:focus, form textarea:focus {
+            border-color: #ff385c;
+        }
+
+        button:hover{
+            background-color: #b62943;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./layouts/nav.ejs') %>
+
+    <div id="edit-listing" class="flex-1 p-2 sm:p-5">
+        <h1 class="text-2xl sm:text-3xl font-semibold text-center mb-4">Update Listing<br>Id: <%= properties._id %></h1>
+        <form action="/listing/edit/<%= properties._id %>" method="post" class=" flex flex-col mx-auto">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required value="<%= properties.title %>">
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required> <%= properties.description %> </textarea>
+
+            <label for="price">Price / Night:</label>
+            <input type="number" id="price" name="price" required value="<%= properties.price %>">
+
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required value="<%= properties.location %>">
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" required value="<%= properties.country %>">
+
+            <label for="image">Image URL:</label>
+            <input type="text" id="image" name="image" value="<%= properties.image[0] %>">
+
+            <button type="submit" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Update Listing</button>
+        </form>
+    </div>
+
+    <%- include('./layouts/footer.ejs') %>
+</body>
+</html>

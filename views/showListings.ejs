@@ -13,14 +13,7 @@
   </head>
 
   <body>
-    <nav class="flex items-center md:gap-12 gap-4 px-2 py-4">
-      <i class="logo text-5xl text-[#ff385c] ri-compasses-2-fill"></i>
-      <ul class="flex md:gap-12 gap-4">
-        <li><a href="/">Home</a></li>
-        <li><a href="#">Listings</a></li>
-        <li><a href="/listing/add">Add New Listing</a></li>
-      </ul>
-    </nav>
+    <%- include('./layouts/nav.ejs') %>
 
     <main class="w-full bg-[#f9f9f9]">
       <section id="listings" class="relative p-5 my-5 rounded-lg">
@@ -33,17 +26,11 @@
                   <p>$<%= property.price %> / night</p>
                 </div>
             <% }); %>
-
-            <!--
-
-                <div class="cardimg rounded-lg h-[300px] w-full flex flex-col justify-between p-5 text-white"></div>
-                <p class="text-xl">Cozy Beachfront Cottage</p>
-                <p>$1500 / night</p>
-
-            -->
         </div>
       </section>
     </main>
+
+    <%- include('./layouts/footer.ejs') %>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

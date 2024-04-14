@@ -42,6 +42,16 @@ app.get('/listings',wrapAsync(async (req,res)=>{
     res.render('showListings', {properties});
 }));
 
+/* to display about */
+app.get('/aboutus', (req, res) => {
+    res.render('about');
+});
+
+/* to display contact */
+app.get('/contactus', (req, res) => {
+    res.render('contactus');
+});
+
 /* to display individual listing in detail*/
 app.get('/listings/:id',wrapAsync(async (req,res)=>{
     console.log('To display individual listing in detail');

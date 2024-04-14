@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About | Primestay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+
+        .error-animation {
+            animation: error-animation 2s infinite;
+        }
+
+        @keyframes error-animation {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(180deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body class="w-[100vw] h-[100vh] m-0 bg-[#f5f5f5] flex flex-col justify-between">
+    <%- include('./layouts/nav.ejs') %>
+    
+    <section id="about" class="flex flex-col gap-5 px-5 md:px-12 max-w-screen-lg mx-auto">
+        <h1 class="text-2xl font-semibold">About Us</h1>
+        <p>Welcome to Primestay, your premier destination for finding the best hotels in the area. Our mission is to provide you with a seamless booking experience, allowing you to discover and book the perfect accommodations for your travels.</p>
+        <p>At Primestay, we pride ourselves on offering a curated selection of hotels, ensuring that every property meets our high standards of quality and comfort. Whether you're planning a weekend getaway, a business trip, or a family vacation, we've got you covered.</p>
+        <p>Our team is dedicated to making your stay unforgettable. From user-friendly search tools to helpful customer support, we're here to assist you every step of the way. Discover the perfect hotel for your next adventure with Primestay.</p>
+        <p>Explore our <a href="hotels.html">hotels</a> page to find the ideal accommodations for your next trip. With a wide range of options to choose from, you're sure to find the perfect place to stay with Primestay.</p>
+    </section>
+
+    <%- include('./layouts/footer.ejs') %>
+</body>
+</html>

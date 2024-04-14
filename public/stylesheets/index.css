@@ -1,58 +1,29 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav {
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    #newweek .containerr::-webkit-scrollbar{
-        
-    }
-  
+nav {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#newweek .card {
+  background: url("https://a0.muscache.com/im/pictures/e35bb307-05f4-48a4-bdc5-3b2198bb9451.jpg?im_w=1440");
+  min-width: 500px;
+  background-size: cover;
+  background-position: center;
+}
+
+
+@media (max-width: 800px) {
   #newweek .card {
-    background: url('https://a0.muscache.com/im/pictures/e35bb307-05f4-48a4-bdc5-3b2198bb9451.jpg?im_w=1440');
-    min-width:500px;
-    background-size: cover;
-    background-position: center;
+    min-width: 300px;
   }
-  
-  
-  
-  /* Book Now Section Styles */
-  #book {
-    padding: 50px 0;
-  }
-  
-  #book form {
-    display: flex;
-  }
-  
-  #book input {
-    width: calc(75% - 10px);
-    margin-right: 10px;
-    padding: 10px;
-  }
-  
-  #book button {
-    width: calc(25%);
-    padding: 10px;
-    border: none;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  @media (max-width:800px) {
-    #newweek .card {
-      min-width: 300px;
-    }
-  }
+}
 
-  @media (max-width:400px) {
-    #newweek .card {
-      min-width: 250px;
-    }
+@media (max-width: 400px) {
+  #newweek .card {
+    min-width: 250px;
   }
+}

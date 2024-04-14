@@ -15,8 +15,9 @@
   <body class="w-full overflow-x-hidden">
     <%- include('./layouts/nav.ejs') %>
 
-    <main class="px-4 py-2 w-full">
-      <section id="welcome" class="relative p-5 bg-[#f9f9f9] my-5 bg-red-100 rounded-lg">
+    <main class="px-4 py-4 w-full flex flex-col gap-4">
+
+      <section id="welcome" class="relative p-5 bg-[#f9f9f9] bg-red-100 rounded-lg">
         <h1 class="text-4xl font-semibold mb-4">Welcome to PrimeStay!</h1>
         <div class="container">
             <p class="text-xl mb-4">
@@ -79,35 +80,32 @@
         </div>
       </section>
 
-      <section id="community" class="p-5 bg-red-100 rounded-lg">
-        <p class="text-4xl font-semibold">Join PrimeStay Community</p>
-        <div class="container">
-          <p class="my-5">PrimeStay invites you to explore the world through our curated collection of exceptional destinations. Join our vibrant community of travelers to share stories, gain insider tips, and unlock exclusive offers. Whether you seek tranquil escapes or exhilarating adventures, PrimeStay is your trusted companion for unforgettable journeys. Start your travel odyssey today and let us redefine the way you experience the world.</p>
+      <section id="newsletter" class="p-5 bg-red-100 rounded-lg">
+        <p class="text-4xl font-semibold">Join PrimeStay NewsLetter</p>
+        <div class="containerr">
+          <p class="mt-5">Unlock exclusive travel deals, insider tips, and destination highlights by subscribing to PrimeStay's newsletter. Be the first to know about our latest promotions, curated travel experiences, and expert recommendations delivered directly to your inbox. Join our community of wanderlust explorers and embark on unforgettable journeys with PrimeStay. Don't miss out – sign up now and elevate your travel adventures!</p>
 
-          <form id="signup-form">
-            <div class="flex items-center flex-col justify-between">
-                <input type="email" placeholder="Your Email" class="p-2 rounded-lg mb-2"/>
-                <input type="text" placeholder="Your Name" class="p-2 rounded-lg mb-2"/>
-                <input type="password" placeholder="Password" class="p-2 rounded-lg mb-2"/>
+          <form id="signup-form" class="w-full">
+            <div class="flex items-center justify-center gap-2 flex-col sm:flex-row my-5">
+                <input type="email" placeholder="Your Email" name="email" class="p-2 w-1/2 rounded-lg mb-2 max-w-[500px]" required/>
+                <input type="text" placeholder="Your Name" name="name" class="p-2 w-1/2 rounded-lg mb-2 max-w-[500px]" required/>
             </div>
-            <button type="submit" class="p-2 rounded-lg bg-[#ff385c] text-white block">Join Now</button>
+            <button type="submit" class="p-2 rounded-lg bg-[#ff385c] text-white block mx-auto">Join Now</button>
           </form>
       </section>
+      
+      <section class="p-5 bg-red-100 rounded-lg">
+        <p class="text-4xl font-semibold">Ready to Start Your Adventure?</p>
+        <div class="containerr">
+          <p class="mt-5">Explore our curated selection of hotels and accommodations that suit every traveler's taste and budget. Whether you're seeking luxury resorts, cozy boutique stays, or budget-friendly options, we've got you covered. Click below to discover your next unforgettable stay.</p>
 
-      <section id="book">
-        <!-- Book Now -->
-        <div class="container">
-          <h2>Ready to Start Your Adventure?</h2>
-          <form id="search-form">
-            <input type="text" placeholder="Find Your Perfect Stay" />
-            <button type="submit">Search Now</button>
-          </form>
-        </div>
+          <button onclick="move('/listings')" class="p-2 rounded-lg bg-[#ff385c] text-white block mx-auto">Explore All Hotels</button>
       </section>
+    
     </main>
 
     <%- include('./layouts/footer.ejs') %>
 
-    <script src="index.js"></script>
+    <script src="/scripts/index.js"></script>
   </body>
 </html>

@@ -3,10 +3,11 @@
 <head>
     <title>Error 404 - Page Not Found</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
 
         .error-animation {
             animation: error-animation 2s infinite;
@@ -25,11 +26,17 @@
         }
     </style>
 </head>
-<body class="w-screen h-screen flex items-center justify-center m-0 bg-[#f5f5f5]">
-    <div class="error-container text-center flex flex-col gap-12">
-        <h1 class="error-code text-9xl text-[#e74c3c] font-semibold">404</h1>
-        <p class="error-message text-[#333] text-4xl">Page Not Found</p>
-        <div class="error-animation text-5xl">⚠️</div>
+<body class="w-[100vw] h-[100vh] m-0 bg-[#f5f5f5] flex flex-col justify-between">
+    <%- include('./layouts/nav.ejs') %>
+    
+    <div class="flex items-center justify-center">
+        <div class="error-container text-center flex flex-col gap-12">
+            <h1 class="error-code text-9xl text-[#e74c3c] font-semibold"><%= status %></h1>
+            <p class="error-message text-[#333] text-4xl"><%= message %></p>
+            <div class="error-animation text-5xl">⚠️</div>
+        </div>
     </div>
+
+    <%- include('./layouts/footer.ejs') %>
 </body>
 </html>

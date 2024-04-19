@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
 const Property = require('./models/property');
+const Review = require('./models/review');
 const methodOverride = require('method-override');
 const wrapAsync = require('./utils/wrapAsync');
 
@@ -56,10 +57,31 @@ app.get('/contactus', (req, res) => {
 app.get('/listings/:id',wrapAsync(async (req,res)=>{
     console.log('To display individual listing in detail');
     let id = req.params.id;
+    let fullCard = card = await Property.findById(id).populate('reviews');
+    if(!fullCard) throw new Error('Property not found');
+    console.log(fullCard);
+    res.render('listing', {fullCard});
+}));
+
+/* to recieve review for listing */
+app.post('/listings/:id/review',async (req,res)=>{
+    console.log('To recieve review for listing');
+    let id = req.params.id;
+    let comment = req.body.comment;
+    let rating = Number(req.body.rating);
+
+    let nreview = new Review({comment,rating});
+
     let card = await Property.findById(id)
     if(!card) throw new Error('Property not found');
-    res.render('listing', {card});
-}));
+
+    card.reviews.push(nreview._id);
+
+    await nreview.save();
+    await card.save();
+    
+    res.redirect(`/listings/${id}`);
+});
 
 /* to display edit listing form */
 app.get('/listing/edit/:id',wrapAsync(async (req,res)=>{
@@ -88,7 +110,6 @@ app.get('/listing/add',(req,res)=>{
 app.post('/listing/add',wrapAsync (async (req,res,next)=>{
     console.log('To add new listing');
     let {title,description,price,location,image,country} = req.body;
-    if(!price || price<500) throw new Error('Price must be greater than 500');
     let property = new Property({title,description,price,location,image:[image],country});
     await property.save();
     res.redirect('/listings');

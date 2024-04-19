@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Review = require('./review');
 
 let propertySchema = new mongoose.Schema({
     title: String,
@@ -16,6 +17,12 @@ let propertySchema = new mongoose.Schema({
     price: Number,
     location: String,
     country: String,
+    reviews:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Review'
+        }
+    ]
 });
 
 let Property = mongoose.model('Property', propertySchema);

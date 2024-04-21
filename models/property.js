@@ -25,6 +25,15 @@ let propertySchema = new mongoose.Schema({
     ]
 });
 
+propertySchema.post('findOneAndDelete',async (property)=>{
+    console.log('Deleting reviews of property',property._id);
+    if(property.reviews.length){
+        for(let review of property.reviews){
+            await Review.deleteOne({_id:review._id});
+        }
+    }
+})
+
 let Property = mongoose.model('Property', propertySchema);
 
 module.exports = Property;

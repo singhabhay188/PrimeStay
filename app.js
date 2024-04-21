@@ -1,12 +1,13 @@
-const exp = require('constants');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
-const Property = require('./models/property');
-const Review = require('./models/review');
 const methodOverride = require('method-override');
 const wrapAsync = require('./utils/wrapAsync');
+
+/* Models */
+const Property = require('./models/property');
+const Review = require('./models/review');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -60,7 +61,7 @@ app.get('/listings/:id',wrapAsync(async (req,res)=>{
     let fullCard = card = await Property.findById(id).populate('reviews');
     if(!fullCard) throw new Error('Property not found');
     console.log(fullCard);
-    res.render('listing', {fullCard});
+    res.render('listing', {card:fullCard});
 }));
 
 /* to recieve review for listing */
@@ -81,6 +82,15 @@ app.post('/listings/:id/review',async (req,res)=>{
     await card.save();
     
     res.redirect(`/listings/${id}`);
+});
+
+/* to delete review  */
+app.delete('/listings/:id/review/:idReview',async (req,res)=>{
+    let pid = req.params.id;
+    let rid = req.params.idReview;
+    await Property.findByIdAndUpdate(pid,{$pull:{reviews:rid}});
+    await Review.findByIdAndDelete(rid);
+    res.redirect(`/listings/${pid}`);
 });
 
 /* to display edit listing form */
@@ -116,9 +126,10 @@ app.post('/listing/add',wrapAsync (async (req,res,next)=>{
 }));
 
 /* to delete listing */
-app.get('/listing/delete/:id',wrapAsync (async (req,res)=>{
+app.delete('/listing/:id',wrapAsync (async (req,res)=>{
+    console.log('To delete listing');
     let id = req.params.id;
-    await Property.findByIdAndDelete(id)
+    await Property.findOneAndDelete({_id:id});
     res.redirect('/listings');
 }));
 

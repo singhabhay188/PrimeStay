@@ -1,162 +1,213 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Property Listing</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         html,
         body {
             width: 100%;
             min-height: 100vh;
         }
-        
+
         nav {
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         @media (max-width: 900px) {
-            #listing{
+            #listing {
                 width: 70vw;
             }
         }
+
         @media (max-width: 600px) {
-            #listing{
+            #listing {
                 width: 80vw;
             }
         }
+
         @media (max-width: 450px) {
-            #listing{
+            #listing {
                 width: 90vw;
             }
         }
 
-        
-        .ratingStars{
+        .ratingStars {
             color: gray;
         }
     </style>
 </head>
+
 <body class="min-h-full flex flex-col">
     <%- include('./layouts/nav.ejs') %>
-    <section class="w-[93vw] mx-auto max-w-screen-xl pt-4 lg:pt-8">
-
-        <div id="listing" class="flex flex-col w-full h-full p-5 gap-5 md:items-center">
-            <p class="text-4xl font-semibold"><%= card.title %></p>
-            <img src="<%= card.image[0] %>" alt="" class="w-full max-w-[800px] rounded-3xl">
-            <p class="font-semibold"><%= card.description %></p>
-            <p>$ <%= card.price %> / Night</p>
-            <p><%= card.location %> , <%= card.country %></p>
-            <div>
-                <button id="editButton" onclick="move('<%= card.id %>',true)" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Edit</button>
-                <button class="bg-gray-500  px-4 py-2 rounded-lg text-white" onclick="move('<%= card.id %>',false)">Delete</button>
+        <section class="w-[93vw] mx-auto max-w-screen-xl pt-4 lg:pt-8">
+            <div id="listing" class="flex flex-col w-full h-full p-5 gap-5 md:items-center">
+                <p class="text-4xl font-semibold">
+                    <%= card.title %>
+                </p>
+                <img src="<%= card.image[0] %>" alt=""
+                    class="w-full max-w-[800px] max-h-[500px] object-cover position-center rounded-3xl" />
+                <p class="font-semibold">
+                    <%= card.description %>
+                </p>
+                <p>$ <%= card.price %> / Night</p>
+                <p>
+                    <%= card.location %> , <%= card.country %>
+                </p>
+                <div class="flex gap-5">
+                    <button id="editButton" onclick="move('<%= card.id %>',true)"
+                        class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">
+                        Edit
+                    </button>
+                    <form action="/listing/<%= card._id %>?_method=DELETE" method="post" class="w-full">
+                        <button class="bg-gray-500 px-4 py-2 rounded-lg text-white">Delte this Post</button>
+                    </form>
+                </div>
             </div>
-        </div>
-        
-        <hr class="w-full h-[2px] bg-black">
-        
-        <!-- Review Section -->
-        <h1 class="text-2xl lg:text-4xl font-semibold py-3 lg:py-6">Reviews</h1>
 
-        <div id="newReviewDiv" class="p-2 sm:p-5 border-2 border-gray-500">
-            <h2 class="text-2xl font-semibold pb-4">Add a New Review</h2>
-            <form action="/listings/<%= card._id %>/review" method="post" class="flex flex-col gap-5 needs-validation" novalidate>
-                <div class="col-md-3 w-full">
-                    <label for="comment" class="form-label">Comment:</label>
-                    <textarea class="form-control" id="comment" name="comment" required minlength="10" rows="4" style="resize: none;"></textarea>
-                    <div class="invalid-feedback">
-                      Provide a longer comment.
-                    </div>
+            <hr class="w-full h-[2px] bg-black" />
+
+            <!-- Review Section -->
+            <h1 class="text-2xl lg:text-4xl font-semibold py-3 lg:py-6">Reviews</h1>
+
+            <div class="flex flex-col justify-between items-start relative gap-4 md:flex-row-reverse">
+                <div id="newReviewDiv"
+                    class="w-full p-2 sm:p-5 border-2 border-gray-500 md:sticky md:top-5 md:w-1/2 rounded-lg">
+                    <h2 class="text-2xl font-semibold pb-4">Add a New Review</h2>
+                    <form action="/listings/<%= card._id %>/review" method="post"
+                        class="flex flex-col gap-5 needs-validation" novalidate>
+                        <div class="col-md-3 w-full">
+                            <label for="comment" class="form-label">Comment:</label>
+                            <textarea class="form-control" id="comment" name="comment" required minlength="10" rows="4"
+                                style="resize: none"></textarea>
+                            <div class="invalid-feedback">Provide a longer comment.</div>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-2 items-center">
+                            <label for="rating" class="font-semibold">Rating:</label>
+                            <div id="ratingDivParent" class="flex gap-3 justify-center">
+                                <div>
+                                    <input type="radio" id="star1" name="rating" value="1" class="hidden" /><label
+                                        for="star1"
+                                        class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="star2" name="rating" value="2" class="hidden" /><label
+                                        for="star2"
+                                        class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
+                                </div>
+                                <div>
+                                    <input type="radio" checked id="star3" name="rating" value="3"
+                                        class="hidden" /><label for="star3"
+                                        class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="star4" name="rating" value="4" class="hidden" /><label
+                                        for="star4" class="ratingStars cursor-pointer text-3xl">&#9733;</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="star5" name="rating" value="5" class="hidden" /><label
+                                        for="star5" class="ratingStars cursor-pointer text-3xl">&#9733;</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="bg-[#ff385c] font-semibold p-2 rounded-lg text-white">
+                            Post Review
+                        </button>
+                    </form>
                 </div>
-                <div class="flex flex-col md:flex-row gap-2 items-center">
-                    <label for="rating" class="font-semibold">Rating:</label>
-                    <div id="ratingDivParent" class="flex gap-3 justify-center">
-                        <div><input type="radio" id="star1" name="rating" value="1" class="hidden"><label for="star1" class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label></div>
-                        <div><input type="radio" id="star2" name="rating" value="2" class="hidden"><label for="star2" class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label></div>
-                        <div><input type="radio" checked id="star3" name="rating" value="3" class="hidden"><label for="star3" class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label></div>
-                        <div><input type="radio" id="star4" name="rating" value="4" class="hidden"><label for="star4" class="ratingStars cursor-pointer text-3xl">&#9733;</label></div>
-                        <div><input type="radio" id="star5" name="rating" value="5" class="hidden"><label for="star5" class="ratingStars cursor-pointer text-3xl">&#9733;</label></div>
-                    </div>
+
+                <div id="reviews" class="w-full md:w-1/2 flex flex-col gap-4">
+                    <% if(card.reviews.length>0) {%> <% card.reviews.forEach((review)=>{
+                            %>
+                            <div class="p-4 border-2 border-gray-500 bg-slate-100 rounded-lg flex flex-col gap-2">
+                                <p class="text-lg capitalize">
+                                    <%= review.comment %>
+                                </p>
+                                <p>
+                                    Rating: <span class="text-yellow-400"> &#9733; </span> <%= review.rating %>
+                                </p>
+                                <p class="font-bold text-[#ff385c]">
+                                    Posted on: <%= new Date(review.createdAt).toLocaleString() %>
+                                </p>
+                                <form action="/listings/<%= card._id %>/review/<%= review._id %>?_method=DELETE" method="post" class="w-full">
+                                    <button class="px-4 py-2 rounded-lg bg-[#ff385c] text-white w-full">Delte this Post</button>
+                                </form>
+                            </div>
+                            <% }) %>
+                                <% } %>
+                                    <% if(!card.reviews || card.reviews.length==0) { %>
+                                        <p class="text-gray-400 text-lg">No Reviews Yet!</p>
+                                        <p class="text-gray-400 text-lg">
+                                            Be the first one to add review about this place.
+                                        </p>
+                                        <% } %>
                 </div>
-                <button type="submit" class="bg-green-700 p-2 rounded-lg text-white">Post Review</button>
-            </form>
-        </div>
-    
-        <div id="reviews">
-            <% card.reviews.forEach((review)=>{ %>
-                <div class="p-2 my-2 border-2 border-gray-500">
-                    <p><%= review.comment %></p>
-                    <p>Rating: 
-                        <% for(let i = 0; i < review.rating; i++) { %>
-                            &#9733;
-                        <% } %>
-                    </p>  
-                    <p>Posted on: <%= review.createdAt %></p>
-                </div>
-            <% }) %>
-        </div>
-            
-    </div>
+            </div>
+        </section>
 
-    <%- include('./layouts/footer.ejs') %>
+        <%- include('./layouts/footer.ejs') %>
 
-    <script>
-        function move(id,isEdit){
-            if(isEdit){
-                let url = `/listing/edit/${id}`;
-                window.location.href = url;
-            }else{
-                let url = `/listing/delete/${id}`;
-                window.location.href = url;
-            }
-        }
-
-        let ratingStars = document.querySelectorAll('.ratingStars');
-
-        ratingStars.forEach((ratingStar) => {
-            ratingStar.addEventListener('click', function(e){
-                //first remove all stars
-                ratingStars.forEach((r)=>{
-                    r.classList.remove('text-yellow-500');
-                })
-
-                //now add stars till that element
-                let index = Array.from(ratingStars).indexOf(ratingStar);
-                for(let i=0; i<=index; i++){
-                    ratingStars[i].classList.add('text-yellow-500');
+            <script>
+                function move(id, isEdit) {
+                    if (isEdit) {
+                        let url = `/listing/edit/${id}`;
+                        window.location.href = url;
+                    } else {
+                        let url = `/listing/delete/${id}`;
+                        window.location.href = url;
+                    }
                 }
-            });
-        });
 
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-  'use strict'
+                let ratingStars = document.querySelectorAll(".ratingStars");
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+                ratingStars.forEach((ratingStar) => {
+                    ratingStar.addEventListener("click", function (e) {
+                        //first remove all stars
+                        ratingStars.forEach((r) => {
+                            r.classList.remove("text-yellow-500");
+                        });
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+                        //now add stars till that element
+                        let index = Array.from(ratingStars).indexOf(ratingStar);
+                        for (let i = 0; i <= index; i++) {
+                            ratingStars[i].classList.add("text-yellow-500");
+                        }
+                    });
+                });
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-    </script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function () {
+                    "use strict";
+
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.querySelectorAll(".needs-validation");
+
+                    // Loop over them and prevent submission
+                    Array.prototype.slice.call(forms).forEach(function (form) {
+                        form.addEventListener(
+                            "submit",
+                            function (event) {
+                                if (!form.checkValidity()) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+
+                                form.classList.add("was-validated");
+                            },
+                            false
+                        );
+                    });
+                })();
+            </script>
 </body>
+
 </html>

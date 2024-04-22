@@ -16,33 +16,22 @@ app.use(methodOverride('_method'))
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-connect()
-.then(() => {
-    console.log('Connected to database');
-})
-.catch((err) => {
-    console.log('Error connecting to database', err);
-});
-
 async function connect(){
     try{
         await mongoose.connect('mongodb://localhost:27017/primestay');
+        console.log('Connected to database');
     }
     catch(err){
         console.log('Error connecting to database', err);
     }
 }
 
+connect();
+
 /* to display home page */
 app.get('/', (req, res) => {
     res.render('index');
 });
-
-/* to display all listing */
-app.get('/listings',wrapAsync(async (req,res)=>{
-    let properties = await Property.find({});
-    res.render('showListings', {properties});
-}));
 
 /* to display about */
 app.get('/aboutus', (req, res) => {
@@ -54,18 +43,29 @@ app.get('/contactus', (req, res) => {
     res.render('contactus');
 });
 
+/* to display all listing */
+app.get('/listing',wrapAsync(async (req,res)=>{
+    let properties = await Property.find({});
+    res.render('showListings', {properties});
+}));
+
+/* to display add listing form */
+app.get('/listing/add',(req,res)=>{
+    console.log('To display add listing form');
+    res.render('newlisting');
+});
+
 /* to display individual listing in detail*/
-app.get('/listings/:id',wrapAsync(async (req,res)=>{
+app.get('/listing/:id',wrapAsync(async (req,res)=>{
     console.log('To display individual listing in detail');
     let id = req.params.id;
     let fullCard = card = await Property.findById(id).populate('reviews');
     if(!fullCard) throw new Error('Property not found');
-    console.log(fullCard);
     res.render('listing', {card:fullCard});
 }));
 
 /* to recieve review for listing */
-app.post('/listings/:id/review',async (req,res)=>{
+app.post('/listing/:id/review',async (req,res)=>{
     console.log('To recieve review for listing');
     let id = req.params.id;
     let comment = req.body.comment;
@@ -81,16 +81,16 @@ app.post('/listings/:id/review',async (req,res)=>{
     await nreview.save();
     await card.save();
     
-    res.redirect(`/listings/${id}`);
+    res.redirect(`/listing/${id}`);
 });
 
 /* to delete review  */
-app.delete('/listings/:id/review/:idReview',async (req,res)=>{
+app.delete('/listing/:id/review/:idReview',async (req,res)=>{
     let pid = req.params.id;
     let rid = req.params.idReview;
     await Property.findByIdAndUpdate(pid,{$pull:{reviews:rid}});
     await Review.findByIdAndDelete(rid);
-    res.redirect(`/listings/${pid}`);
+    res.redirect(`/listing/${pid}`);
 });
 
 /* to display edit listing form */
@@ -107,14 +107,8 @@ app.post('/listing/edit/:id',wrapAsync (async (req,res)=>{
     console.log('To update listing');
     let id = req.params.id;
     await Property.findByIdAndUpdate(id, req.body)
-    res.redirect('/listings');
+    res.redirect('/listing');
 }));
-
-/* to display add listing form */
-app.get('/listing/add',(req,res)=>{
-    console.log('To display add listing form');
-    res.render('newlisting');
-});
 
 /* to add new listing */
 app.post('/listing/add',wrapAsync (async (req,res,next)=>{
@@ -122,7 +116,7 @@ app.post('/listing/add',wrapAsync (async (req,res,next)=>{
     let {title,description,price,location,image,country} = req.body;
     let property = new Property({title,description,price,location,image:[image],country});
     await property.save();
-    res.redirect('/listings');
+    res.redirect('/listing');
 }));
 
 /* to delete listing */
@@ -130,7 +124,7 @@ app.delete('/listing/:id',wrapAsync (async (req,res)=>{
     console.log('To delete listing');
     let id = req.params.id;
     await Property.findOneAndDelete({_id:id});
-    res.redirect('/listings');
+    res.redirect('/listing');
 }));
 
 app.get( '*', (req, res) => {
@@ -143,7 +137,6 @@ app.use((err,req,res,next)=>{
     const status = err.status || 500;
     res.status(status).render('error',{message,status});
 })
-
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

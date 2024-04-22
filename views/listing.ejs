@@ -83,7 +83,7 @@
                 <div id="newReviewDiv"
                     class="w-full p-2 sm:p-5 border-2 border-gray-500 md:sticky md:top-5 md:w-1/2 rounded-lg">
                     <h2 class="text-2xl font-semibold pb-4">Add a New Review</h2>
-                    <form action="/listings/<%= card._id %>/review" method="post"
+                    <form action="/listing/<%= card._id %>/review" method="post"
                         class="flex flex-col gap-5 needs-validation" novalidate>
                         <div class="col-md-3 w-full">
                             <label for="comment" class="form-label">Comment:</label>
@@ -138,7 +138,7 @@
                                 <p class="font-bold text-[#ff385c]">
                                     Posted on: <%= new Date(review.createdAt).toLocaleString() %>
                                 </p>
-                                <form action="/listings/<%= card._id %>/review/<%= review._id %>?_method=DELETE" method="post" class="w-full">
+                                <form action="/listing/<%= card._id %>/review/<%= review._id %>?_method=DELETE" method="post" class="w-full">
                                     <button class="px-4 py-2 rounded-lg bg-[#ff385c] text-white w-full">Delte this Post</button>
                                 </form>
                             </div>

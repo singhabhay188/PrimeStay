@@ -13,17 +13,13 @@ router.post('/',async (req,res)=>{
     let id = req.params.id;
     let comment = req.body.comment;
     let rating = Number(req.body.rating);
-
     let nreview = new Review({comment,rating});
-
     let card = await Property.findById(id)
     if(!card) throw new Error('Property not found');
-
     card.reviews.push(nreview._id);
-
     await nreview.save();
     await card.save();
-    
+    req.flash('message', 'Review Successfully Added');
     res.redirect(`/listing/${id}`);
 });
 
@@ -33,6 +29,7 @@ router.delete('/:idReview',async (req,res)=>{
     let rid = req.params.idReview;
     await Property.findByIdAndUpdate(pid,{$pull:{reviews:rid}});
     await Review.findByIdAndDelete(rid);
+    req.flash('message', 'Review Successfully Deleted');
     res.redirect(`/listing/${pid}`);
 });
 

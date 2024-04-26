@@ -3,13 +3,17 @@ const mongoose = require('mongoose');
 const path = require('path');
 const app = express();
 const methodOverride = require('method-override');
+const flash = require('connect-flash');
+const session = require('express-session')
 
+app.use(session({secret:'verysecretkeythisis',resave:false,saveUninitialized:true}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'))
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 const listingRoute = require('./routes/listing');
 const reviewRoute = require('./routes/review');

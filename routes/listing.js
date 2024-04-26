@@ -10,7 +10,7 @@ const Property = require('../models/property');
 router.get('/',wrapAsync(async (req,res)=>{
     console.log('To display all listing');
     let properties = await Property.find({});
-    res.render('showListings', {properties});
+    res.render('showListings', {properties,message:req.flash('message')});
 }));
 
 /* to display add listing form */
@@ -25,7 +25,7 @@ router.get('/:id',wrapAsync(async (req,res)=>{
     let id = req.params.id;
     let fullCard = card = await Property.findById(id).populate('reviews');
     if(!fullCard) throw new Error('Property not found');
-    res.render('listing', {card:fullCard});
+    res.render('listing', {card:fullCard,message:req.flash('message')});
 }));
 
 /* to display edit listing form */
@@ -41,7 +41,8 @@ router.get('/edit/:id',wrapAsync(async (req,res)=>{
 router.post('/edit/:id',wrapAsync (async (req,res)=>{
     console.log('To update listing');
     let id = req.params.id;
-    await Property.findByIdAndUpdate(id, req.body)
+    await Property.findByIdAndUpdate(id, req.body);
+    req.flash('message', 'Property Successfully Updated');
     res.redirect('/listing');
 }));
 
@@ -51,6 +52,7 @@ router.post('/add',wrapAsync (async (req,res,next)=>{
     let {title,description,price,location,image,country} = req.body;
     let property = new Property({title,description,price,location,image:[image],country});
     await property.save();
+    req.flash('message', 'Listing Successfully Created');
     res.redirect('/listing');
 }));
 
@@ -59,6 +61,7 @@ router.delete('/:id',wrapAsync (async (req,res)=>{
     console.log('To delete listing');
     let id = req.params.id;
     await Property.findOneAndDelete({_id:id});
+    req.flash('message', 'Listing Successfully Deleted');
     res.redirect('/listing');
 }));
 

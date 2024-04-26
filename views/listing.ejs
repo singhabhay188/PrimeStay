@@ -50,6 +50,7 @@
 <body class="min-h-full flex flex-col">
     <%- include('./layouts/nav.ejs') %>
         <section class="w-[93vw] mx-auto max-w-screen-xl pt-4 lg:pt-8">
+            <h1 class="text-xl text-[#ff385c] text-end"><%= message %></h1>
             <div id="listing" class="flex flex-col w-full h-full p-5 gap-5 md:items-center">
                 <p class="text-4xl font-semibold">
                     <%= card.title %>
@@ -69,7 +70,7 @@
                         Edit
                     </button>
                     <form action="/listing/<%= card._id %>?_method=DELETE" method="post" class="w-full">
-                        <button class="bg-gray-500 px-4 py-2 rounded-lg text-white">Delte this Post</button>
+                        <button class="bg-gray-500 px-4 py-2 rounded-lg text-white">Delete this Post</button>
                     </form>
                 </div>
             </div>

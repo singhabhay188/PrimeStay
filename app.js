@@ -4,20 +4,32 @@ const path = require('path');
 const app = express();
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
-const session = require('express-session')
+const session = require('express-session');
+const passport = require('passport');
+const localStrategy = require('passport-local');
+const User = require('./models/user');
 
-app.use(session({secret:'verysecretkeythisis',resave:false,saveUninitialized:true}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'))
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'verysecretkeythisis',resave:false,saveUninitialized:true}));
 app.use(flash());
+
+//passport configuration
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new localStrategy(User.authenticate())); //authenticate method is provided by passport local mongoose
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 const listingRoute = require('./routes/listing');
 const reviewRoute = require('./routes/review');
-
+const userRoute = require('./routes/user');
 
 async function connect(){
     try{
@@ -36,6 +48,19 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+/* create a demo user */
+app.get('/demouser',async (req,res)=>{
+    try{
+        const user = new User({email:'demouser@gmail.com',name:'Demo User'});
+        await user.setPassword('demopassword');   
+        await user.save();
+        res.send(user);
+    }
+    catch(err){
+        res.render('error',{message:err.message,status:500});
+    }
+});
+
 /* to display about */
 app.get('/aboutus', (req, res) => {
     res.render('about');
@@ -52,6 +77,8 @@ app.use('/listing',listingRoute);
 /* review routes */
 app.use('/listing/:id/review',reviewRoute);
 
+/* user routes */
+app.use('/user',userRoute);
 
 
 /* unncessary routes */

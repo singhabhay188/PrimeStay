@@ -43,22 +43,16 @@ async function connect(){
 
 connect();
 
+
+app.use('/',(req,res,next)=>{
+    res.locals.cUser = req.user;
+    next();
+})
+
+
 /* to display home page */
 app.get('/', (req, res) => {
     res.render('index');
-});
-
-/* create a demo user */
-app.get('/demouser',async (req,res)=>{
-    try{
-        const user = new User({email:'demouser@gmail.com',name:'Demo User'});
-        await user.setPassword('demopassword');   
-        await user.save();
-        res.send(user);
-    }
-    catch(err){
-        res.render('error',{message:err.message,status:500});
-    }
 });
 
 /* to display about */

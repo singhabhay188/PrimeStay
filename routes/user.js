@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const passport = require('passport');
+
 /* Models */
 const User = require('../models/user');
 
@@ -14,7 +16,8 @@ router.post('/signup', async (req, res) => {
         const user = new User({email,name,username:email});
         await user.setPassword(password);   
         await user.save();
-        res.send(`registeration succesfull ${name}`);
+        req.flash('message','User registered successfully. Please login to continue');
+        res.redirect('/user/login');
     }
     catch(err){
         console.log(err.message);
@@ -23,5 +26,28 @@ router.post('/signup', async (req, res) => {
         res.redirect('/user/signup');
     }
 });
+
+router.get('/login',(req,res)=>{
+    res.render('login',{message:req.flash('error')});
+})
+
+router.post('/login', 
+  passport.authenticate('local', { failureRedirect:'/user/login', failureFlash: true}),
+  function(req, res) {
+    req.flash('message','Logged in Successfully');
+    res.redirect('/listing');
+});
+
+router.get('/logout',(req,res,next)=>{
+    req.logout((err)=>{
+        if(err){
+            console.log(err);
+            next(err);
+        }
+
+        req.flash('message','Succesfully Logged Out');
+        res.redirect('/listing');
+    })
+})
 
 module.exports = router;

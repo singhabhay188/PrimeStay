@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const isLoggedIn = require('../middlewares/isLoggedIn');
 const wrapAsync = require('../utils/wrapAsync');
 
 /* Models */
@@ -14,7 +15,7 @@ router.get('/',wrapAsync(async (req,res)=>{
 }));
 
 /* to display add listing form */
-router.get('/add',(req,res)=>{
+router.get('/add',isLoggedIn,(req,res)=>{
     console.log('To display add listing form');
     res.render('newlisting');
 });
@@ -29,7 +30,7 @@ router.get('/:id',wrapAsync(async (req,res)=>{
 }));
 
 /* to display edit listing form */
-router.get('/edit/:id',wrapAsync(async (req,res)=>{
+router.get('/edit/:id',isLoggedIn,wrapAsync(async (req,res)=>{
     console.log('To display edit listing form');
     let id = req.params.id;
     let property = await Property.findOne({_id:id})
@@ -38,7 +39,7 @@ router.get('/edit/:id',wrapAsync(async (req,res)=>{
 }));
 
 /* to update listing */
-router.post('/edit/:id',wrapAsync (async (req,res)=>{
+router.post('/edit/:id',isLoggedIn,wrapAsync (async (req,res)=>{
     console.log('To update listing');
     let id = req.params.id;
     await Property.findByIdAndUpdate(id, req.body);
@@ -47,7 +48,7 @@ router.post('/edit/:id',wrapAsync (async (req,res)=>{
 }));
 
 /* to add new listing */
-router.post('/add',wrapAsync (async (req,res,next)=>{
+router.post('/add',isLoggedIn,wrapAsync (async (req,res,next)=>{
     console.log('To add new listing');
     let {title,description,price,location,image,country} = req.body;
     let property = new Property({title,description,price,location,image:[image],country});
@@ -57,7 +58,7 @@ router.post('/add',wrapAsync (async (req,res,next)=>{
 }));
 
 /* to delete listing */
-router.delete('/:id',wrapAsync (async (req,res)=>{
+router.delete('/:id',isLoggedIn,wrapAsync (async (req,res)=>{
     console.log('To delete listing');
     let id = req.params.id;
     await Property.findOneAndDelete({_id:id});

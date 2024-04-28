@@ -5,4 +5,12 @@
         <li><a href="/listing">Listings</a></li>
         <li><a href="/listing/add">Add New Listing</a></li>
     </ul>
+    <ul class="flex md:gap-12 gap-4 ml-auto pr-5">
+        <% if(cUser) { %>
+            <li><a href="/user/logout">Log Out</a></li>
+        <% } else { %>
+            <li><a href="/user/login">Login</a></li>
+            <li><a href="/user/signup">SignUp</a></li>
+        <% } %>
+    </ul>
 </nav>

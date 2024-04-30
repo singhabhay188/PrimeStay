@@ -5,10 +5,11 @@ const router = express.Router({mergeParams:true});
 const Property = require('../models/property');
 const Review = require('../models/review');
 
+const isLoggedIn = require('../middlewares/isLoggedIn');
 
 
 /* to recieve review for listing */
-router.post('/',async (req,res)=>{
+router.post('/',isLoggedIn,async (req,res)=>{
     console.log('To recieve review for listing');
     let id = req.params.id;
     let comment = req.body.comment;
@@ -24,7 +25,7 @@ router.post('/',async (req,res)=>{
 });
 
 /* to delete review  */
-router.delete('/:idReview',async (req,res)=>{
+router.delete('/:idReview',isLoggedIn,async (req,res)=>{
     let pid = req.params.id;
     let rid = req.params.idReview;
     await Property.findByIdAndUpdate(pid,{$pull:{reviews:rid}});

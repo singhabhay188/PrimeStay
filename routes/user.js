@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-
 const passport = require('passport');
+
+const storeRedirectUrl = require('../middlewares/storeRedirectUrl');
 
 /* Models */
 const User = require('../models/user');
@@ -16,8 +17,11 @@ router.post('/signup', async (req, res) => {
         const user = new User({email,name,username:email});
         await user.setPassword(password);   
         await user.save();
-        req.flash('message','User registered successfully. Please login to continue');
-        res.redirect('/user/login');
+        req.login(user,(err)=>{
+            if(err) return next(err);
+            req.flash('message','Signed and Logged in Successfully');
+            res.redirect('/listing');
+        });
     }
     catch(err){
         console.log(err.message);
@@ -32,8 +36,14 @@ router.get('/login',(req,res)=>{
 })
 
 router.post('/login', 
+  storeRedirectUrl,
   passport.authenticate('local', { failureRedirect:'/user/login', failureFlash: true}),
   function(req, res) {
+    let url = res.locals.redirectUrl;
+    if(url){
+        console.log(res.locals?.redirectUrl);
+        return res.redirect(url);
+    }
     req.flash('message','Logged in Successfully');
     res.redirect('/listing');
 });

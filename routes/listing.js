@@ -26,8 +26,8 @@ router.get('/add',isLoggedIn,(req,res)=>{
 router.get('/:id',wrapAsync(async (req,res)=>{
     console.log('To display individual listing in detail');
     let id = req.params.id;
-    let fullCard = card = await Property.findById(id).populate('reviews').populate('owner');
-    console.log('Full Card:',fullCard);
+    let fullCard = card = await Property.findById(id).populate({path:'reviews',populate:'creator'}).populate({path:'owner'});
+    console.log('Full Card:',fullCard.reviews);
     if(!fullCard) throw new Error('Property not found');
     res.render('listing', {card:fullCard,message:req.flash('message')});
 }));

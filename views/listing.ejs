@@ -144,6 +144,7 @@
                     <% if(card.reviews.length>0) {%> <% card.reviews.forEach((review)=>{
                             %>
                             <div class="p-4 border-2 border-gray-500 bg-slate-100 rounded-lg flex flex-col gap-2">
+                                <p class="text-lg font-semibold">By <%= review.creator.name %></p>
                                 <p class="text-lg capitalize">
                                     <%= review.comment %>
                                 </p>
@@ -153,9 +154,11 @@
                                 <p class="font-bold text-[#ff385c]">
                                     Posted on: <%= new Date(review.createdAt).toLocaleString() %>
                                 </p>
-                                <form action="/listing/<%= card._id %>/review/<%= review._id %>?_method=DELETE" method="post" class="w-full">
-                                    <button class="px-4 py-2 rounded-lg bg-[#ff385c] text-white w-full">Delte this Review</button>
-                                </form>
+                                <% if(cUser && cUser._id.equals(review.creator._id)) {%>
+                                    <form action="/listing/<%= card._id %>/review/<%= review._id %>?_method=DELETE" method="post" class="w-full">
+                                        <button class="px-4 py-2 rounded-lg bg-[#ff385c] text-white w-full">Delete this Review</button>
+                                    </form>
+                                <% } %>
                             </div>
                             <% }) %>
                                 <% } %>

@@ -92,47 +92,52 @@
             <div class="flex flex-col justify-between items-start relative gap-4 md:flex-row-reverse">
                 <div id="newReviewDiv"
                     class="w-full p-2 sm:p-5 border-2 border-gray-500 md:sticky md:top-5 md:w-1/2 rounded-lg">
-                    <h2 class="text-2xl font-semibold pb-4">Add a New Review</h2>
-                    <form action="/listing/<%= card._id %>/review" method="post"
-                        class="flex flex-col gap-5 needs-validation" novalidate>
-                        <div class="col-md-3 w-full">
-                            <label for="comment" class="form-label">Comment:</label>
-                            <textarea class="form-control" id="comment" name="comment" required minlength="10" rows="4"
-                                style="resize: none"></textarea>
-                            <div class="invalid-feedback">Provide a longer comment.</div>
-                        </div>
-                        <div class="flex flex-col md:flex-row gap-2 items-center">
-                            <label for="rating" class="font-semibold">Rating:</label>
-                            <div id="ratingDivParent" class="flex gap-3 justify-center">
-                                <div>
-                                    <input type="radio" id="star1" name="rating" value="1" class="hidden" /><label
-                                        for="star1"
-                                        class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="star2" name="rating" value="2" class="hidden" /><label
-                                        for="star2"
-                                        class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
-                                </div>
-                                <div>
-                                    <input type="radio" checked id="star3" name="rating" value="3"
-                                        class="hidden" /><label for="star3"
-                                        class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="star4" name="rating" value="4" class="hidden" /><label
-                                        for="star4" class="ratingStars cursor-pointer text-3xl">&#9733;</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="star5" name="rating" value="5" class="hidden" /><label
-                                        for="star5" class="ratingStars cursor-pointer text-3xl">&#9733;</label>
+                    <h2 class="text-2xl font-semibold pb-3">Add a New Review</h2>
+                    <% if(!cUser){ %>
+                        <p class="text-lg font-semibold">Login Now to Add a new Review</p>
+                        <a href="/user/login" class="bg-[#ff385c] font-semibold p-2 rounded-lg text-white mt-3 block w-max">Login Now</a>
+                    <% } else { %>
+                        <form action="/listing/<%= card._id %>/review" method="post"
+                            class="flex flex-col gap-5 needs-validation" novalidate>
+                            <div class="col-md-3 w-full">
+                                <label for="comment" class="form-label">Comment:</label>
+                                <textarea class="form-control" id="comment" name="comment" required minlength="10" rows="4"
+                                    style="resize: none"></textarea>
+                                <div class="invalid-feedback">Provide a longer comment.</div>
+                            </div>
+                            <div class="flex flex-col md:flex-row gap-2 items-center">
+                                <label for="rating" class="font-semibold">Rating:</label>
+                                <div id="ratingDivParent" class="flex gap-3 justify-center">
+                                    <div>
+                                        <input type="radio" id="star1" name="rating" value="1" class="hidden" /><label
+                                            for="star1"
+                                            class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="star2" name="rating" value="2" class="hidden" /><label
+                                            for="star2"
+                                            class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" checked id="star3" name="rating" value="3"
+                                            class="hidden" /><label for="star3"
+                                            class="ratingStars cursor-pointer text-3xl text-yellow-500">&#9733;</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="star4" name="rating" value="4" class="hidden" /><label
+                                            for="star4" class="ratingStars cursor-pointer text-3xl">&#9733;</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="star5" name="rating" value="5" class="hidden" /><label
+                                            for="star5" class="ratingStars cursor-pointer text-3xl">&#9733;</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <button type="submit" class="bg-[#ff385c] font-semibold p-2 rounded-lg text-white">
-                            Post Review
-                        </button>
-                    </form>
+                            <button type="submit" class="bg-[#ff385c] font-semibold p-2 rounded-lg text-white">
+                                Post Review
+                            </button>
+                        </form>
+                    <% } %>
                 </div>
 
                 <div id="reviews" class="w-full md:w-1/2 flex flex-col gap-4">

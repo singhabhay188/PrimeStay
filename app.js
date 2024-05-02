@@ -46,7 +46,7 @@ connect();
 
 app.use('/',(req,res,next)=>{
     res.locals.cUser = req.user;
-    console.log(req.user);
+    console.log('ReqUser',req.user);
     next();
 })
 

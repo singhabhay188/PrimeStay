@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+/* Middlewares */
+const isOwner = require('../middlewares/isOwner');
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const wrapAsync = require('../utils/wrapAsync');
 
@@ -25,13 +27,13 @@ router.get('/:id',wrapAsync(async (req,res)=>{
     console.log('To display individual listing in detail');
     let id = req.params.id;
     let fullCard = card = await Property.findById(id).populate('reviews').populate('owner');
-    console.log(fullCard);
+    console.log('Full Card:',fullCard);
     if(!fullCard) throw new Error('Property not found');
     res.render('listing', {card:fullCard,message:req.flash('message')});
 }));
 
 /* to display edit listing form */
-router.get('/edit/:id',isLoggedIn,wrapAsync(async (req,res)=>{
+router.get('/edit/:id',isLoggedIn,isOwner,wrapAsync(async (req,res)=>{
     console.log('To display edit listing form');
     let id = req.params.id;
     let property = await Property.findOne({_id:id})
@@ -40,7 +42,7 @@ router.get('/edit/:id',isLoggedIn,wrapAsync(async (req,res)=>{
 }));
 
 /* to update listing */
-router.post('/edit/:id',isLoggedIn,wrapAsync (async (req,res)=>{
+router.post('/edit/:id',isLoggedIn,isOwner,wrapAsync (async (req,res)=>{
     console.log('To update listing');
     let id = req.params.id;
     //we have to set up authentication first find by id and then check if current user is owner of the listing then update
@@ -66,7 +68,7 @@ router.post('/add',isLoggedIn,wrapAsync (async (req,res,next)=>{
 }));
 
 /* to delete listing */
-router.delete('/:id',isLoggedIn,wrapAsync (async (req,res)=>{
+router.delete('/:id',isLoggedIn,isOwner,wrapAsync (async (req,res)=>{
     console.log('To delete listing');
     let id = req.params.id;
     await Property.findOneAndDelete({_id:id});

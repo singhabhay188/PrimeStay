@@ -24,7 +24,8 @@ router.get('/add',isLoggedIn,(req,res)=>{
 router.get('/:id',wrapAsync(async (req,res)=>{
     console.log('To display individual listing in detail');
     let id = req.params.id;
-    let fullCard = card = await Property.findById(id).populate('reviews');
+    let fullCard = card = await Property.findById(id).populate('reviews').populate('owner');
+    console.log(fullCard);
     if(!fullCard) throw new Error('Property not found');
     res.render('listing', {card:fullCard,message:req.flash('message')});
 }));
@@ -42,7 +43,13 @@ router.get('/edit/:id',isLoggedIn,wrapAsync(async (req,res)=>{
 router.post('/edit/:id',isLoggedIn,wrapAsync (async (req,res)=>{
     console.log('To update listing');
     let id = req.params.id;
-    await Property.findByIdAndUpdate(id, req.body);
+    //we have to set up authentication first find by id and then check if current user is owner of the listing then update
+    let cproperty = await Property.findById(id);
+    if(cproperty.owner.toString() !== req?.user._id.toString()){
+        req.flash('message', 'You are not authorized to update this listing');
+        return res.redirect('/listing');
+    }
+    await Property.updateOne({_id:id},req.body);
     req.flash('message', 'Property Successfully Updated');
     res.redirect('/listing');
 }));
@@ -52,6 +59,7 @@ router.post('/add',isLoggedIn,wrapAsync (async (req,res,next)=>{
     console.log('To add new listing');
     let {title,description,price,location,image,country} = req.body;
     let property = new Property({title,description,price,location,image:[image],country});
+    property.owner = req.user._id;
     await property.save();
     req.flash('message', 'Listing Successfully Created');
     res.redirect('/listing');

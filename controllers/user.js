@@ -29,7 +29,7 @@ module.exports.displayLogin = (req, res) => {
     res.render('login',{message:req.flash('error')});
 };
 
-module.exports.afterlogin = (req, res) {
+module.exports.afterlogin = (req, res) => {
     let url = res.locals.redirectUrl;
     if(url){
         console.log(res.locals?.redirectUrl);

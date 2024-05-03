@@ -65,13 +65,10 @@
                     <%= card.location %> , <%= card.country %>
                 </p>
                 <% if(card.owner._id.equals(cUser?._id)) { %>
-                    <div class="flex gap-5">
-                        <button id="editButton" onclick="move('<%= card.id %>',true)"
-                            class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">
-                            Edit
-                        </button>
+                    <div class="flex gap-5 bg-black">
+                        <button id="editButton" onclick="move('<%= card.id %>',true)" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white text-nowrap"> Edit this Property</button>
                         <form action="/listing/<%= card._id %>?_method=DELETE" method="post" class="w-full">
-                            <button class="bg-gray-500 px-4 py-2 rounded-lg text-white">Delete this Post</button>
+                            <button class="bg-gray-500 px-4 py-2 rounded-lg text-white">Delete this Property</button>
                         </form>
                     </div>
                 <% } %>

@@ -13,22 +13,19 @@ const listingController = require('../controllers/listing');
 /* to display all listing */
 router.get('/',wrapAsync(listingController.displayAllListings));
 
-/* to display add listing form */
-router.get('/add',isLoggedIn,listingController.displayAddListingForm);
+/* to display add listing form and add new listing*/
+router.route('/add')
+    .get(isLoggedIn,listingController.displayAddListingForm)
+    .post(isLoggedIn,wrapAsync(listingController.addNewListing));
 
-/* to display individual listing in detail*/
-router.get('/:id',wrapAsync(listingController.displayListingDetail));
+/* to display individual listing in detail and delete listing*/
+router.route('/:id')
+    .get(wrapAsync(listingController.displayListingDetail))
+    .delete(isLoggedIn,isOwner,wrapAsync(listingController.deleteListing));
 
-/* to display edit listing form */
-router.get('/edit/:id',isLoggedIn,isOwner,wrapAsync(listingController.displayEditListingForm));
-
-/* to update listing */
-router.post('/edit/:id',isLoggedIn,isOwner,wrapAsync (listingController.updateListing));
-
-/* to add new listing */
-router.post('/add',isLoggedIn,wrapAsync (listingController.addNewListing));
-
-/* to delete listing */
-router.delete('/:id',isLoggedIn,isOwner,wrapAsync (listingController.deleteListing));
+/* to display edit listing form and update listing*/
+router.route('/edit/:id')
+    .get(isLoggedIn,isOwner,listingController.displayEditListingForm)
+    .post(isLoggedIn,isOwner,listingController.updateListing);
 
 module.exports = router;

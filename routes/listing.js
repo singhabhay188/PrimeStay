@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const multer  = require('multer');
+const storage = require('../cloudConfig');
+const upload = multer(storage);
 
 /* Middlewares */
 const isOwner = require('../middlewares/isOwner');
@@ -16,7 +19,10 @@ router.get('/',wrapAsync(listingController.displayAllListings));
 /* to display add listing form and add new listing*/
 router.route('/add')
     .get(isLoggedIn,listingController.displayAddListingForm)
-    .post(isLoggedIn,wrapAsync(listingController.addNewListing));
+    //.post(isLoggedIn,upload.single('avatar'),wrapAsync(listingController.addNewListing));
+    .post(isLoggedIn,upload.single('image'), (req, res, next) => {
+        res.send(req.file);
+    })
 
 /* to display individual listing in detail and delete listing*/
 router.route('/:id')

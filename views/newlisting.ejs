@@ -47,7 +47,7 @@
 <body class="h-full flex flex-col">
     <%- include('./layouts/nav.ejs') %>
     <div id="add-listing" class="flex-1 p-5">
-        <form action="/listing/add" method="post" class="flex flex-col gap-2 mx-auto needs-validation" novalidate>
+        <form action="/listing/add" method="post" class="flex flex-col gap-2 mx-auto needs-validation" novalidate enctype="multipart/form-data">
             
             <div class="col-md-3 w-full">
                 <label for="title" class="form-label">Title:</label>
@@ -92,8 +92,8 @@
                 </div>
             </div>
 
-            <label for="image">Image URL:</label>
-            <input type="text" id="image" name="image">
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
 
             <button type="submit" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Add Listing</button>
         </form>

@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -46,7 +47,6 @@ connect();
 
 app.use('/',(req,res,next)=>{
     res.locals.cUser = req.user;
-    console.log('ReqUser',req.user);
     next();
 })
 

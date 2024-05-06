@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Listing</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         html,
         body {
             width: 100%;
             min-height: 100vh;
         }
-        
+
         nav {
-            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
-        form{
+        form {
             width: min(600px, 90vw);
         }
 
-        form input, form textarea {
+        form input,
+        form textarea {
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
@@ -39,88 +39,119 @@
             resize: none;
         }
 
-        form input:focus, form textarea:focus {
+        form input:focus,
+        form textarea:focus {
             border-color: #ff385c;
         }
     </style>
 </head>
+
 <body class="h-full flex flex-col">
     <%- include('./layouts/nav.ejs') %>
-    <div id="add-listing" class="flex-1 p-5">
-        <form action="/listing/add" method="post" class="flex flex-col gap-2 mx-auto needs-validation" novalidate enctype="multipart/form-data">
-            
-            <div class="col-md-3 w-full">
-                <label for="title" class="form-label">Title:</label>
-                <input type="text" class="form-control" id="title" name="title" required>
-                <div class="invalid-feedback">
-                  Please provide Title.
+        <div id="add-listing" class="flex-1 p-5">
+            <form action="/listing/add" method="post" class="flex flex-col gap-2 mx-auto needs-validation" novalidate
+                enctype="multipart/form-data">
+
+                <div class="col-md-3 w-full">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                    <div class="invalid-feedback">
+                        Please provide Title.
+                    </div>
+                    <div class="valid-feedback">
+                        Cool looking Title.
+                    </div>
                 </div>
-                <div class="valid-feedback">
-                  Cool looking Title.
+
+                <div class="col-md-3 w-full">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea class="form-control" id="description" name="description" required
+                        minlength="40"></textarea>
+                    <div class="invalid-feedback">
+                        Provide a longer description.
+                    </div>
                 </div>
-            </div>
-            
-            <div class="col-md-3 w-full">
-                <label for="description" class="form-label">Description:</label>
-                <textarea class="form-control" id="description" name="description" required minlength="40"></textarea>
-                <div class="invalid-feedback">
-                  Provide a longer description.
+
+                <div class="col-md-3 w-full">
+                    <label for="description" class="form-label">Price / Night:</label>
+                    <input type="number" class="form-control" id="price" name="price" required min="100">
+                    <div class="invalid-feedback">
+                        Minimum Price Should be 100.
+                    </div>
                 </div>
-            </div>
-            
-            <div class="col-md-3 w-full">
-                <label for="description" class="form-label">Price / Night:</label>
-                <input type="number" class="form-control" id="price" name="price" required min="100">
-                <div class="invalid-feedback">
-                  Minimum Price Should be 100.
+
+                <div class="col-md-3 w-full">
+                    <label for="location" class="form-label">Location:</label>
+                    <input type="text" class="form-control" id="location" name="location" required>
+                    <div class="invalid-feedback">
+                        Location is Necessary.
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-3 w-full">
-                <label for="location" class="form-label">Location:</label>
-                <input type="text" class="form-control" id="location" name="location" required>
-                <div class="invalid-feedback">
-                  Location is Necessary.
+                <div class="col-md-3 w-full">
+                    <label for="country" class="form-label">Country:</label>
+                    <input type="text" class="form-control" id="country" name="country" required>
+                    <div class="invalid-feedback">
+                        Please provide Country.
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-3 w-full">
-                <label for="country" class="form-label">Country:</label>
-                <input type="text" class="form-control" id="country" name="country" required>
-                <div class="invalid-feedback">
-                  Please provide Country.
+                <div class="col-md-3 w-full">
+                    <label for="image" class="form-label">Image:</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                    <div class="invalid-feedback">
+                        At least one image is required.
+                    </div>
                 </div>
-            </div>
 
-            <label for="image">Image:</label>
-            <input type="file" id="image" name="image" accept="image/*">
+                <button type="submit" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Add Listing</button>
+            </form>
+        </div>
 
-            <button type="submit" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Add Listing</button>
-        </form>
-    </div>
+        <%- include('./layouts/footer.ejs') %>
 
-    <%- include('./layouts/footer.ejs') %>
+            <script>
+                (() => {
+                    'use strict'
 
-    <script>
-        (() => {
-        'use strict'
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    const forms = document.querySelectorAll('.needs-validation')
 
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation')
+                    // Loop over them and prevent submission
+                    Array.from(forms).forEach(form => {
+                        form.addEventListener('submit', event => {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
 
-        // Loop over them and prevent submission
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+                })();
 
-            form.classList.add('was-validated')
-            }, false)
-        })
-        })()
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+                const fileInput = document.getElementById('image');
+                fileInput.addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    console.log(event.target.files);
+                    if (file) {
+                        const maxSize = 5 * 1024 * 1024; // 5MB
+                        if (file.size > maxSize) {
+                            alert('File size exceeds the maximum limit of 5MB.');
+                            fileInput.value = '';
+                            return;
+                        }
+
+                        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                        if (!allowedTypes.includes(file.type)) {
+                            alert('Only JPG, JPEG, and PNG files are allowed.');
+                            fileInput.value = '';
+                            return;
+                        }
+                    }
+                });
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

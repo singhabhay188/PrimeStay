@@ -29,6 +29,7 @@ router.route('/:id')
 /* to display edit listing form and update listing*/
 router.route('/edit/:id')
     .get(isLoggedIn,isOwner,listingController.displayEditListingForm)
-    .post(isLoggedIn,isOwner,listingController.updateListing);
+    //.post(isLoggedIn,isOwner,upload.single('image'),wrapAsync(listingController.updateListing));
+    .post(isLoggedIn,upload.single('image'),wrapAsync(listingController.updateListing));
 
 module.exports = router;

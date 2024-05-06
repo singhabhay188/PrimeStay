@@ -38,6 +38,9 @@ module.exports.updateListing = async (req,res)=>{
         req.flash('message', 'You are not authorized to update this listing');
         return res.redirect('/listing');
     }
+    let path = req.file ? req.file.path : cproperty.image.path;
+    let filename = req.file ? req.file.filename : cproperty.image.filename;
+    req.body.image = {path,filename};
     await Property.updateOne({_id:id},req.body);
     req.flash('message', 'Property Successfully Updated');
     res.redirect('/listing');
@@ -45,10 +48,9 @@ module.exports.updateListing = async (req,res)=>{
 
 module.exports.addNewListing = async (req,res)=>{
     console.log('To add new listing');
-    let {title,description,price,location,country} = req.body;
-    let path = req.file.path;
-    let filename = req.file.filename;
-    let property = new Property({title,description,price,location,image:{path,filename},country});
+    let path = req.file ? req.file.path : 'https://via.placeholder.com/500';
+    let filename = req.file ? req.file.filename : 'DefaultFileName';
+    let property = new Property({...req.body,image:{path,filename}});
     property.owner = req.user._id;
     await property.save();
     req.flash('message', 'Listing Successfully Created');

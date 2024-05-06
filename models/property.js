@@ -6,8 +6,12 @@ let propertySchema = new mongoose.Schema({
     title: String,
     description: String,
     image: {
-        filename: String,
-        path: String
+        filename: {
+            type:String,
+        },
+        path: {
+            type:String,
+        }
     },
     price: Number,
     location: String,

@@ -53,9 +53,9 @@
 
     <div id="edit-listing" class="flex-1 p-2 sm:p-5">
         <h1 class="text-2xl sm:text-3xl font-semibold text-center mb-4">Update Listing<br>Id: <%= property._id %></h1>
-        <form action="/listing/edit/<%= property._id %>" method="post" class="needs-validation mx-auto" novalidate>
+        <form action="/listing/edit/<%= property._id %>" method="post" class="needs-validation mx-auto" novalidate enctype="multipart/form-data">
             <div class="col-md-3 w-full">
-                <label for="title" class="form-label">Title:</label>
+                <label for="title" class="form-label font-bold">Title:</label>
                 <input type="text" class="form-control" id="title" name="title" required value="<%= property.title %>">
                 <div class="invalid-feedback">
                     Please provide a title.
@@ -63,7 +63,7 @@
             </div>
 
             <div class="col-md-3 w-full">
-                <label for="description" class="form-label">Description:</label>
+                <label for="description" class="form-label font-bold">Description:</label>
                 <textarea class="form-control" id="description" name="description" rows="4"  required><%= property.description %></textarea>
                 <div class="invalid-feedback">
                     Please provide a description.
@@ -71,7 +71,7 @@
             </div>
 
             <div class="col-md-3 w-full">
-                <label for="price" class="form-label">Price / Night:</label>
+                <label for="price" class="form-label font-bold">Price / Night:</label>
                 <input type="number" class="form-control" id="price" name="price" required min="100" value="<%= property.price %>">
                 <div class="invalid-feedback">
                     Price should be greater than 100.
@@ -79,7 +79,7 @@
             </div>
 
             <div class="col-md-3 w-full">
-                <label for="location" class="form-label">Location:</label>
+                <label for="location" class="form-label font-bold">Location:</label>
                 <input type="text" class="form-control" id="location" name="location" required value="<%= property.location %>">
                 <div class="invalid-feedback">
                     Please provide a location.
@@ -87,19 +87,26 @@
             </div>
 
             <div class="col-md-3 w-full">
-                <label for="country" class="form-label">Country:</label>
+                <label for="country" class="form-label font-bold">Country:</label>
                 <input type="text" class="form-control" id="country" name="country" required value="<%= property.country %>">
                 <div class="invalid-feedback">
                     Please provide a country.
                 </div>
             </div>
 
+            <% if(property.image?.path) {%>
+                <div class="flex gap-4 items-center my-4">
+                    <p class="font-bold text-xl">Old Image:</p>
+                    <img src="<%= property.image.path %>" alt="Property Image" class="w-48 h-48 object-cover rounded-lg mb-4">
+                </div>
+            <% } %>
+
             <div class="col-md-3 w-full">
-                <label for="image" class="form-label">Image URL:</label>
-                <input type="text" class="form-control" id="image" name="image" value="<%= property.image[0] %>">
+                <label for="image" class="form-label">Image:</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
             </div>
 
-            <button type="submit" class="bg-[#ff385c] px-4 py-2 rounded-lg text-white">Update Listing</button>
+            <button type="submit" class="bg-[#ff385c] px-4 py-2 my-2 rounded-lg text-white">Update Listing</button>
         </form>
     </div>
 
@@ -124,7 +131,27 @@
                     form.classList.add('was-validated')
                 }, false)
             })
-        })()
+        })();
+        const fileInput = document.getElementById('image');
+        fileInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            console.log(event.target.files);
+            if (file) {
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                if (file.size > maxSize) {
+                    alert('File size exceeds the maximum limit of 5MB.');
+                    fileInput.value = '';
+                    return;
+                }
+
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Only JPG, JPEG, and PNG files are allowed.');
+                    fileInput.value = '';
+                    return;
+                }
+            }
+        });
     </script>
 </body>
 </html>

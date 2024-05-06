@@ -6,14 +6,8 @@ let propertySchema = new mongoose.Schema({
     title: String,
     description: String,
     image: {
-        type:Array,
-        default: [ 'https://via.placeholder.com/350' ],
-        set(value){
-            if(!value || value==''){
-                return 'https://via.placeholder.com/350';
-            }
-            return value;
-        }
+        filename: String,
+        path: String
     },
     price: Number,
     location: String,

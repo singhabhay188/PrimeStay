@@ -19,10 +19,7 @@ router.get('/',wrapAsync(listingController.displayAllListings));
 /* to display add listing form and add new listing*/
 router.route('/add')
     .get(isLoggedIn,listingController.displayAddListingForm)
-    //.post(isLoggedIn,upload.single('avatar'),wrapAsync(listingController.addNewListing));
-    .post(isLoggedIn,upload.single('image'), (req, res, next) => {
-        res.send(req.file);
-    })
+    .post(isLoggedIn,upload.single('image'),wrapAsync(listingController.addNewListing));
 
 /* to display individual listing in detail and delete listing*/
 router.route('/:id')

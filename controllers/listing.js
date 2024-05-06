@@ -45,8 +45,10 @@ module.exports.updateListing = async (req,res)=>{
 
 module.exports.addNewListing = async (req,res)=>{
     console.log('To add new listing');
-    let {title,description,price,location,image,country} = req.body;
-    let property = new Property({title,description,price,location,image:[image],country});
+    let {title,description,price,location,country} = req.body;
+    let path = req.file.path;
+    let filename = req.file.filename;
+    let property = new Property({title,description,price,location,image:{path,filename},country});
     property.owner = req.user._id;
     await property.save();
     req.flash('message', 'Listing Successfully Created');

@@ -24,7 +24,7 @@
         <div id="listingscontainer" class="w-full grid gap-5">
             <% properties.forEach(property => { %>
                 <div class="card" data-id="<%= property._id %>">
-                  <div class="cardimg rounded-lg h-[300px] bg-cover" style="background-image: url('<%= property.image %>');"></div>
+                  <div class="cardimg rounded-lg h-[300px] bg-cover" style="background-image: url('<%= property.image.path %>');"></div>
                   <p class="text-xl"><%= property.title %></p>
                   <p>$<%= property.price %> / night</p>
                 </div>

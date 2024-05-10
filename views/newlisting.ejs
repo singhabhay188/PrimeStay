@@ -54,7 +54,7 @@
 
                 <div class="col-md-3 w-full">
                     <label for="title" class="form-label">Title:</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control" id="title" name="title" required placeholder="ABC Villa">
                     <div class="invalid-feedback">
                         Please provide Title.
                     </div>
@@ -66,7 +66,7 @@
                 <div class="col-md-3 w-full">
                     <label for="description" class="form-label">Description:</label>
                     <textarea class="form-control" id="description" name="description" required
-                        minlength="40"></textarea>
+                        minlength="40" placeholder="A very nice villa with great features"></textarea>
                     <div class="invalid-feedback">
                         Provide a longer description.
                     </div>
@@ -74,7 +74,7 @@
 
                 <div class="col-md-3 w-full">
                     <label for="description" class="form-label">Price / Night:</label>
-                    <input type="number" class="form-control" id="price" name="price" required min="100">
+                    <input type="number" class="form-control" id="price" name="price" required min="100" placeholder="XXXX">
                     <div class="invalid-feedback">
                         Minimum Price Should be 100.
                     </div>
@@ -82,7 +82,7 @@
 
                 <div class="col-md-3 w-full">
                     <label for="location" class="form-label">Location:</label>
-                    <input type="text" class="form-control" id="location" name="location" required>
+                    <input type="text" class="form-control" id="location" name="location" required placeholder="New Delhi">
                     <div class="invalid-feedback">
                         Location is Necessary.
                     </div>
@@ -90,14 +90,31 @@
 
                 <div class="col-md-3 w-full">
                     <label for="country" class="form-label">Country:</label>
-                    <input type="text" class="form-control" id="country" name="country" required>
+                    <input type="text" class="form-control" id="country" name="country" required placeholder="India">
                     <div class="invalid-feedback">
                         Please provide Country.
                     </div>
                 </div>
 
+                <div class="col-md-3 mb-2 w-full">
+                    <label for="category" class="form-label">Category:</label>
+                    <select name="category" id="category" class="block appearance-none border-[0.5px] border-gray-300 rounded-md py-2 px-4 leading-tight focus:outline-none focus:border-blue-500">
+                        <option value="Farms" class="text-gray-800">Farms</option>
+                        <option value="Icons" class="text-gray-800">Icons</option>
+                        <option value="Amazing Views" class="text-gray-800">Amazing Views</option>
+                        <option value="Amazing Pools" class="text-gray-800">Amazing Pools</option>
+                        <option value="Castles" class="text-gray-800">Castles</option>
+                        <option value="Top of the world" class="text-gray-800">Top of the world</option>
+                        <option value="Treehouses" class="text-gray-800">Treehouses</option>
+                        <option value="OMG!" class="text-gray-800">OMG!</option>
+                        <option value="Beachfront" class="text-gray-800">Beachfront</option>
+                        <option value="Cabins" class="text-gray-800">Cabins</option>
+                        <option value="Luxe" class="text-gray-800">Luxe</option>
+                    </select>                    
+                </div>
+
                 <div class="col-md-3 w-full">
-                    <label for="image" class="form-label">Image:</label>
+                    <label for="image" class="form-label">Image: (Max size: 5MB)</label>
                     <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
                     <div class="invalid-feedback">
                         At least one image is required.

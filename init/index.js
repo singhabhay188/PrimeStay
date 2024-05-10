@@ -11,10 +11,11 @@ connect();
 
 async function fillData(){
     await Property.deleteMany({});
-    let newSampleData = sampleData.map((property)=>{
-        property.owner = '66312316ce6484c4412f4150';
+    let newSampleData = [...sampleData];
+    newSampleData.forEach(async (data)=>{
+        data.owner = '66312316ce6484c4412f4150'
+        await Property.insertMany(data);
     });
-    await Property.insertMany(sampleData);
     console.log('Data inserted');
 }
 

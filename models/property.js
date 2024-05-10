@@ -16,6 +16,7 @@ let propertySchema = new mongoose.Schema({
     price: Number,
     location: String,
     country: String,
+    category: String,
     reviews:[
         {
             type: mongoose.Schema.Types.ObjectId,

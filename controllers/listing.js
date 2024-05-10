@@ -7,6 +7,15 @@ module.exports.displayAllListings = async (req,res)=>{
     res.render('showListings', {properties,message:req.flash('message')});
 };
 
+module.exports.displayCategoryListings = async (req,res)=>{
+    console.log('To display all listing based on category');
+    let category = req.params.category;
+    let properties = '';
+    if(category=='all') properties = await Property.find({});
+    else    properties = await Property.find({category});
+    res.json(properties);
+};
+
 module.exports.displayAddListingForm = async (req,res)=>{
     console.log('To display add listing form');
     res.render('newlisting');

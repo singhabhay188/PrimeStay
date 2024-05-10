@@ -16,6 +16,9 @@ const listingController = require('../controllers/listing');
 /* to display all listing */
 router.get('/',wrapAsync(listingController.displayAllListings));
 
+/* to display all listing based on category */
+router.get('/category/:category',wrapAsync(listingController.displayCategoryListings));
+
 /* to display add listing form and add new listing*/
 router.route('/add')
     .get(isLoggedIn,listingController.displayAddListingForm)

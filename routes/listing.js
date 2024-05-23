@@ -16,6 +16,9 @@ const listingController = require('../controllers/listing');
 /* to display all listing */
 router.get('/',wrapAsync(listingController.displayAllListings));
 
+/* to search for listing */
+router.get('/search/:value',wrapAsync(listingController.searchListings));
+
 /* to display all listing based on category */
 router.get('/category/:category',wrapAsync(listingController.displayCategoryListings));
 

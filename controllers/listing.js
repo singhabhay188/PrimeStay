@@ -7,6 +7,14 @@ module.exports.displayAllListings = async (req,res)=>{
     res.render('showListings', {properties,message:req.flash('message')});
 };
 
+module.exports.searchListings = async (req,res)=>{
+    console.log('To search for listing');
+    let searchTerm = req.params.value;
+    const regex = new RegExp("^" + searchTerm, "i");
+    let properties = await Property.find({title: {$regex:regex}}).limit(4);
+    res.json(properties);
+}
+
 module.exports.displayCategoryListings = async (req,res)=>{
     console.log('To display all listing based on category');
     let category = req.params.category;

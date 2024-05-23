@@ -19,14 +19,19 @@
     background-position: center;
   }
   
-  #listings .card{
+  #listingscontainer .card{
     max-width: 400px;
     width: 100%;
-    margin: auto;
   }
   
   #listingscontainer{
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 20px;
     align-content: space-between;
+  }
+
+  @media (max-width:768px) {
+    #listingscontainer .card{
+      margin:auto;
+    }
   }

@@ -18,15 +18,15 @@ taxButton.addEventListener('click', function() {
     let taxprices = document.querySelectorAll('.taxprices');
 
     if (input.checked) {
+        taxprices.forEach(taxprice => {
+            taxprice.classList.remove('hidden');
+        });
+    } else {
+        input.setAttribute('checked', 'checked');
         input.removeAttribute('checked');
         taxprices.forEach(taxprice => {
             taxprice.classList.add('hidden');
         });
-    } else {
-        taxprices.forEach(taxprice => {
-            taxprice.classList.remove('hidden');
-        });
-        input.setAttribute('checked', 'checked');
     }
 });
 

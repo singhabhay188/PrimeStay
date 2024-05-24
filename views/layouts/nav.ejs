@@ -44,7 +44,7 @@
             result.forEach(prop => {
                 clutter = clutter + `<a href="/listing/${prop._id}" class="border-2 border-gray-300 cursor-pointer p-3 w-full">${prop.title}</a>`;
             });
-            if(clutter=='') clutter = '<p class="border-2 border-gray-300 cursor-pointer p-3 w-full">No Results Found</p>';
+            if(clutter=='') clutter = '<p class="border-2 border-gray-300 p-3 w-full">No Results Found</p>';
             searchResults.innerHTML = clutter;
         }
     });

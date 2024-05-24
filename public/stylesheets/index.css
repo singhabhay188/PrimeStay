@@ -8,11 +8,25 @@ nav {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-#newweek .card {
+#newweek .card:nth-child(1){
   background: url("https://a0.muscache.com/im/pictures/e35bb307-05f4-48a4-bdc5-3b2198bb9451.jpg?im_w=1440");
-  min-width: 500px;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
+}
+#newweek .card:nth-child(2){
+  background: url("https://static.javatpoint.com/tourist-places/images/tourist-places-in-usa1.png");
+  background-position: center;
+  background-size: cover;
+}
+#newweek .card:nth-child(3){
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS--4oSdJdxT7cMueSaj6yXXVOBk02xV5PKtlAtB7d1MQ&s");
+  background-position: center;
+  background-size: cover;
+}
+#newweek .card:nth-child(4){
+  background: url("https://www.travelandleisure.com/thmb/yTQltPmWeyKLKgJaqCc6-bdHlo4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/key-west-florida-VISITUSAFEB0118-e7f7f968e90142daa8abd0c5088f704f.jpg");
+  background-position: center;
+  background-size: cover;
 }
 
 .animate{

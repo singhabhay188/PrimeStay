@@ -30,9 +30,18 @@ taxButton.addEventListener('click', function() {
     }
 });
 
+let categories = document.querySelectorAll('#category .categroies');
+
 $(document).ready(function() {
     $('#category .categroies').on('click', function(e) {
+        console.log(e);
         e.preventDefault();
+
+        categories.forEach(category=>{
+            category.classList.remove('activeCategory');
+
+            if(category == this) category.classList.add('activeCategory');
+        })
 
         var category = $(this).data('category');
         console.log(category);
@@ -41,8 +50,8 @@ $(document).ready(function() {
         url: '/listing/category/' + category,
         type: 'GET',
         success: function(data) {
-            let listingContainer = document.getElementById('listingscontainer');
             let clutter = ''
+            let listingContainer = document.getElementById('listingscontainer');
             data.forEach(property=>{
                 clutter = clutter + 
                 `<div class="card" data-id="${property._id}">

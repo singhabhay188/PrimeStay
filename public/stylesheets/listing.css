@@ -30,6 +30,10 @@
     align-content: space-between;
   }
 
+  .activeCategory{
+    border-bottom: 2px solid black;
+  }
+
   @media (max-width:768px) {
     #listingscontainer .card{
       margin:auto;

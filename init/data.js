@@ -62,7 +62,7 @@ const sampleListings = [
       price: 800,
       location: "Portland",
       country: "United States",
-      category: "luxe",
+      category: "treehouses",
     },
     {
       title: "Beachfront Paradise",
@@ -270,7 +270,7 @@ const sampleListings = [
       price: 1100,
       location: "Montana",
       country: "United States",
-      category: "beachfront",
+      category: "cabins",
     },
     {
       title: "Beachfront Villa in Greece",
@@ -309,7 +309,7 @@ const sampleListings = [
       price: 1600,
       location: "Charleston",
       country: "United States",
-      category: "beachfront",
+      category: "cabins",
     },
     {
       title: "Modern Apartment in Tokyo",
